@@ -1,0 +1,12 @@
+queue_dir = "/srv/c9-agent/queue"
+state_dir = "/home/c9-agent/c9-agent/state"
+projects_root = "/srv/3d-proyectos"
+scripts_root = "/srv/c9-agent/scripts"
+output_root = "/srv/c9-agent/output"
+allowed_signers = "/home/c9-agent/.config/c9-agent/allowed_signers"
+result_key = "/home/c9-agent/.config/c9-agent/agent_ed25519"
+blender_bin = "/opt/blender/blender"
+unreal_client = "/home/c9-agent/c9-agent/bin/c9-unreal-exec"
+# Opcional
+# c9mem_bin = "c9mem"
+# c9mem_agent = "c9-agent"

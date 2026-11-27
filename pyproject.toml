@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "c9-agent"
+version = "0.1.0"
+description = "Agente liviano que ejecuta trabajos 3D firmados desde una cola"
+requires-python = ">=3.11"
+license = {text = "MIT"}
+authors = [{name = "Federico Nicolas Baez Rizzo"}]
+
+[project.scripts]
+c9-agent = "c9agent.agent:main"
+
+[tool.setuptools]
+packages = ["c9agent"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = [".", "tests"]

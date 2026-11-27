@@ -1,0 +1,31 @@
+# Instalar como servicio de usuario del usuario dedicado `c9-agent`:
+#   install -D -m 0644 c9-agent.service ~/.config/systemd/user/c9-agent.service
+#   systemctl --user daemon-reload && systemctl --user enable --now c9-agent
+#   sudo loginctl enable-linger c9-agent
+[Unit]
+Description=c9-agent: ejecutor de trabajos 3D firmados
+After=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 -m c9agent --config %h/.config/c9-agent/config.toml
+WorkingDirectory=%h
+Restart=on-failure
+RestartSec=15
+NoNewPrivileges=yes
+PrivateTmp=yes
+ProtectSystem=strict
+ProtectHome=tmpfs
+BindPaths=%h/c9-agent
+BindReadOnlyPaths=%h/.config/c9-agent
+ReadWritePaths=/srv/c9-agent/queue /srv/c9-agent/output
+ReadOnlyPaths=/srv/3d-proyectos /srv/c9-agent/scripts
+RestrictSUIDSGID=yes
+LockPersonality=yes
+UMask=0027
+MemoryMax=24G
+TasksMax=512
+CPUQuota=800%
+
+[Install]
+WantedBy=default.target
