@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install
+        run: python -m pip install --upgrade pip pytest
+      - name: Tests
+        run: |
+          set +e
+          python -m pytest -q
+          rc=$?
+          # 5 = no tests collected (repo inicial sin código)
+          if [ "$rc" -eq 5 ]; then exit 0; fi
+          exit $rc
